@@ -40,7 +40,9 @@ INSERT INTO airplanes ( make, model, age, image_url ) VALUES ( 'Boeing', '777X',
 INSERT INTO airplanes ( make, model, age, image_url ) VALUES ( 'Boeing', '787 - Dreamliner', 1, 'https://t4.ftcdn.net/jpg/05/55/34/63/360_F_555346317_md8bHUKKslwC1lZ6muy5OP9lv5b7ZEMO.jpg' );
 
 -- Airports 
-INSERT INTO airports ( name, latatude, longitude, country_name ) VALUES ( '')
+INSERT INTO airports ( name, latitude, longitude, country_name ) VALUES ( 'Felix Houphouet Boigny', 5.254879, -3.933015, 'Africa' );
+INSERT INTO airports ( name, latitude, longitude, country_name ) VALUES ( 'Albuquerque International', 35.049625, -106.617195, 'United States' );
+
 
 
 

@@ -3,14 +3,18 @@ const express = require( 'express' );
 const app = express();
 const ExpressError = require( './ExpressError.js' );
 
+// Useful Dependencies 
+const morgan = require( 'morgan' );
+
 // Middleware 
 app.use( express.json() );
+app.use( morgan( 'tiny' ) );
 
 // Routers 
-const userRoutes = require( './routes/user.js' );
+const pilotRoutes = require( './routes/pilot.js' );
 
 // Routers - Prefix 
-app.use( '/users', userRoutes );
+app.use( '/pilot', pilotRoutes );
 
 // 404 Error Handler 
 app.use(( req, res, next )=> {
