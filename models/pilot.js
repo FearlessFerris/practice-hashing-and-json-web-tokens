@@ -19,10 +19,15 @@ class Pilot {
         return `Pilot: ${ this.username } Email: ${ this.email } Image: ${ this.image_url } Admin Privileges: ${ this.admin }`
     }
 
-    static async encryptPassowd( password, saltRounds = 12 ){
+    static async encryptPassword( password, saltRounds = 12 ){
         try{
-            const hashed = await bcrypt.hash( password, saltRounds )
-            return hashed;
+            const hashed = await bcrypt.hash( password, saltRounds );
+            const result = await db.query(
+                `UPDATE pilots
+                 SET password = $1
+                 WHERE username = 
+                 RETURNING *;`, [ hashed ]);
+            return result.rows[0];
         }
         catch( error ){
             throw new ExpressError( 'Problem occurred while hashing password!' )
