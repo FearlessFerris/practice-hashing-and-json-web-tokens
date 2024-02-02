@@ -19,14 +19,14 @@ class Pilot {
         return `Pilot: ${ this.username } Email: ${ this.email } Image: ${ this.image_url } Admin Privileges: ${ this.admin }`
     }
 
-    static async encryptPassword( password, saltRounds = 12 ){
+    static async encryptPassword( username, password, saltRounds = 12 ){
         try{
             const hashed = await bcrypt.hash( password, saltRounds );
             const result = await db.query(
                 `UPDATE pilots
                  SET password = $1
-                 WHERE username = 
-                 RETURNING *;`, [ hashed ]);
+                 WHERE username = $2
+                 RETURNING *;`, [ hashed, username ]);
             return result.rows[0];
         }
         catch( error ){

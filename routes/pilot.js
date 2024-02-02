@@ -1,5 +1,6 @@
 // User Routes 
 const express = require( 'express' );
+const ExpressError = require('../ExpressError');
 const router = new express.Router();
 const db = require( '../db' );
 
@@ -40,6 +41,7 @@ router.post( '/create', async ( req, res, next )=> {
     };
 });
 
+// Encrypt a Pilots password to ensure secure personal information
 router.post( '/encrypt', async ( req, res, next )=> {
     try{
         const { username } = req.body;
@@ -47,10 +49,11 @@ router.post( '/encrypt', async ( req, res, next )=> {
             `SELECT password FROM pilots 
              WHERE username = $1`, [ username ]);
         const password = result.rows[0];
-        const hashed = await Pilot.encryptPassword( password.password, 12 );
-        console.log( hashed );
-        console.log( password.password );
-        return res.json({ password: password });
+        if( !password ){
+            return res.status( 404 ).json({ message: `User ${ username }, currently does not have a password!` });
+        }
+        const userEncrypted = await Pilot.encryptPassword( username, password.password, 12 );
+        return res.json({ message: 'Success! Password has been Encrypted!', user: userEncrypted });
     }
     catch( error ){
         return next( error );
