@@ -3,10 +3,10 @@ const { Client } = require( 'pg' );
 let DB_URI;
 
 if( process.env.NODE_ENV === 'test' ){
-    DB_URI = 'postgresql://marcus:Civil392601*@localhost:5432/hashing_test';
+    DB_URI = 'postgresql://marcus:USSKennedy23@localhost:5432/hashing_test';
 }
 else {
-    DB_URI = 'postgresql://marcus:Civil392601*@localhost:5432/hashing';
+    DB_URI = 'postgresql://marcus:USSKennedy23@localhost:5432/hashing';
 }
 
 let db = new Client({
